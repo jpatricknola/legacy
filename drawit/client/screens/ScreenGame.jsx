@@ -38,6 +38,7 @@ class ScreenGame extends PureComponent {
       roundEnded: false,
       gameEnded: false,
       showScoreBoard: false,
+      artwork: null, // added
     };
 
     this.onGameJoined = this.onGameJoined.bind(this);
@@ -48,6 +49,8 @@ class ScreenGame extends PureComponent {
     this.onRoundEnd = this.onRoundEnd.bind(this);
     this.addNotification = this.addNotification.bind(this);
     this.toggleScoreBoard = this.toggleScoreBoard.bind(this);
+    this.saveImg = this.saveImg.bind(this); // added
+    this.updateArt = this.updateArt.bind(this); // added
   }
 
   componentDidMount() {
@@ -132,6 +135,16 @@ class ScreenGame extends PureComponent {
     this.setState({ showScoreBoard: !this.state.showScoreBoard });
   }
 
+  // added
+  updateArt(art) {
+    this.setState({ artwork: art });
+  }
+  // added;
+  saveImg() {
+    const image = this.state.artwork;
+    return image;
+  }
+
   addNotification(notification) {
     this.notificationSystem.addNotification(notification);
   }
@@ -177,6 +190,7 @@ class ScreenGame extends PureComponent {
                 showingScoreBoard={showScoreBoard}
                 addNotification={this.addNotification}
                 toggleScoreBoard={this.toggleScoreBoard}
+                saveImg={this.saveImg} // added
               />
               <Game>
                 {
@@ -190,7 +204,10 @@ class ScreenGame extends PureComponent {
                   )
                   : null
                 }
-                <Canvas drawing={drawing} />
+                <Canvas 
+                  drawing={drawing} 
+                  updateArt={this.updateArt}
+                />
                 <ChatBox
                   canGuess={canGuess}
                   nickname={nickname}

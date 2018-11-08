@@ -63,6 +63,7 @@ class SketchPad extends PureComponent {
       const { tool, joinCode, dispatchItem } = this.props;
       const position = this.getCursorPosition(event);
       const item = tool.onMouseUp(position);
+      this.props.updateArt(this.canvas.toDataURL());
 
       if (item) {
         socket.emit('round:draw', { item, joinCode });

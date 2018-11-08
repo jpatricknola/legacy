@@ -45,7 +45,10 @@ class Canvas extends PureComponent {
 
     return (
       <div>
-        <SketchPad disabled={!drawing} />
+        <SketchPad 
+          disabled={!drawing}
+          updateArt={this.props.updateArt} // added 
+        />
         {drawing ?
           <div>
             <Tools />
@@ -66,6 +69,7 @@ Canvas.propTypes = {
   context: PropTypes.object,
   dispatchItem: PropTypes.func.isRequired,
   dispatchClearItems: PropTypes.func.isRequired,
+  updateArt: PropTypes.func.isRequired, // added
 };
 
 export default connect(
