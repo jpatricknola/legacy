@@ -32,6 +32,18 @@ const ToggleScoreBoard = styled(Button)`
   }
 `;
 
+const TweetButton = styled(Button)`
+  transition: color 300ms ease-out;
+  background: transparent !important;
+  margin: 0;
+  padding: 0;
+  width: unset;
+  color: ${props => (props.active ? '#000' : '#ccc')};
+  :hover {
+    color: #000;
+  }
+`;
+
 const ImgCapture = styled(Button)`
   transition: color 300ms ease-out;
   background: transparent !important;
@@ -61,6 +73,13 @@ const TopBar = props => (
       <i className="fas fa-trophy" />
     </ToggleScoreBoard>
     <ImgCapture> <a href={props.saveImg()} download="My Drawing"> <i className="far fa-save" /> </a></ImgCapture>
+    <TweetButton>
+      <a class="twitter-share-button"
+      target="_blank"
+      href="https://twitter.com/intent/tweet?text=Check%20out%20my%20cool%20drawing"
+      data-size="large">
+Tweet</a>
+</TweetButton>
     <JoinCode>
       <span>{props.joinCode}</span>
     </JoinCode>

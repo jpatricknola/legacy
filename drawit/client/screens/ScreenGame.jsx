@@ -142,6 +142,11 @@ class ScreenGame extends PureComponent {
   // added;
   saveImg() {
     const image = this.state.artwork;
+    const head = 'data:image/png;base64,';
+    if (image !== null) {
+      const imgFileSize = Math.round((image.length - head.length) * 0.75);
+      console.log(imgFileSize);
+    }
     return image;
   }
 
