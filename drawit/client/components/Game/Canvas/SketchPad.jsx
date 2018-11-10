@@ -76,7 +76,7 @@ class SketchPad extends PureComponent {
     if (!this.props.disabled) {
       const { tool } = this.props;
       const position = this.getCursorPosition(event.changedTouches[0]);
-
+      
       tool.onMouseDown(position);
     }
   }
@@ -102,6 +102,7 @@ class SketchPad extends PureComponent {
         socket.emit('round:draw', { item, joinCode });
         dispatchItem(item);
       }
+      dispatchItem(item);
     }
   }
   
