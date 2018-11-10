@@ -72,14 +72,10 @@ const TopBar = props => (
     <ToggleScoreBoard onClick={props.toggleScoreBoard} active={props.showingScoreBoard}>
       <i className="fas fa-trophy" />
     </ToggleScoreBoard>
-    <ImgCapture> <a href={props.saveImg()} download="My Drawing"> <i className="far fa-save" /> </a></ImgCapture>
-    <TweetButton>
-      <a class="twitter-share-button"
-      target="_blank"
-      href="https://twitter.com/intent/tweet?text=Check%20out%20my%20cool%20drawing"
-      data-size="large">
-Tweet</a>
-</TweetButton>
+    <ImgCapture > <a href={props.saveImg()} download="My Drawing"> <i className="far fa-save" /> </a></ImgCapture>
+    <TweetButton onClick={props.twitterCall}>
+      Tweet
+    </TweetButton>
     <JoinCode>
       <span>{props.joinCode}</span>
     </JoinCode>
@@ -99,6 +95,7 @@ TopBar.propTypes = {
   addNotification: PropTypes.func.isRequired,
   toggleScoreBoard: PropTypes.func.isRequired,
   saveImg: PropTypes.func.isRequired, // added
+  twitterCall: PropTypes.func.isRequired,
 };
 
 export default TopBar;

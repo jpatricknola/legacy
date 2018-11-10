@@ -45,9 +45,9 @@ class Canvas extends PureComponent {
 
     return (
       <div>
-        <SketchPad 
+        <SketchPad
           disabled={!drawing}
-          updateArt={this.props.updateArt} // added 
+          updateArt={this.props.updateArt} // added
         />
         {drawing ?
           <div>
