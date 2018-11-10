@@ -14,6 +14,9 @@ class SketchPad extends PureComponent {
   constructor(props) {
     super(props);
 
+    this.onTouchMove = this.onTouchMove.bind(this);
+    this.onTouchStart = this.onTouchStart.bind(this);
+    this.onTouchEnd = this.onTouchEnd.bind(this);
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onMouseMove = this.onMouseMove.bind(this);
     this.onMouseUp = this.onMouseUp.bind(this);
@@ -46,7 +49,6 @@ class SketchPad extends PureComponent {
     if (!this.props.disabled) {
       const { tool } = this.props;
       const position = this.getCursorPosition(event);
-
       tool.onMouseDown(position);
     }
   }
@@ -55,7 +57,6 @@ class SketchPad extends PureComponent {
     if (!this.props.disabled) {
       const { tool } = this.props;
       const position = this.getCursorPosition(event);
-
       tool.onMouseMove(position);
     }
   }
@@ -74,15 +75,51 @@ class SketchPad extends PureComponent {
     }
   }
 
+  onTouchStart(event) {
+    if (!this.props.disabled) {
+      const { tool } = this.props;
+      const position = this.getCursorPosition(event.changedTouches[0]);
+      
+      tool.onMouseDown(position);
+    }
+  }
+  
+  onTouchMove(event) {
+    if (!this.props.disabled) {
+      const { tool } = this.props;
+      const position = this.getCursorPosition(event.touches[0]);
+
+      tool.onMouseMove(position);
+    }
+  }
+
+  onTouchEnd(event) {
+    if (!this.props.disabled) {
+      const { tool, joinCode, dispatchItem } = this.props;
+      const position = this.getCursorPosition(event.changedTouches[0]);
+      
+      console.log(event.changedTouches[0], 'changed END');
+      const item = tool.onMouseUp(position);
+      
+      if (item) {
+        socket.emit('round:draw', { item, joinCode });
+        dispatchItem(item);
+      }
+      dispatchItem(item);
+    }
+  }
+  
   getCursorPosition({ clientX, clientY }) {
     const { top, left } = this.canvas.getBoundingClientRect();
+
+    console.log(clientX, clientY, 'clientX, clientY');
 
     return {
       mouseX: clientX - left,
       mouseY: clientY - top,
     };
   }
-
+ 
   render() {
     return (
       <canvas
@@ -95,6 +132,9 @@ class SketchPad extends PureComponent {
         onMouseOut={this.onMouseUp}
         onMouseUp={this.onMouseUp}
         onBlur={this.onMouseUp}
+        onTouchStart={this.onTouchStart}
+        onTouchMove={this.onTouchMove}
+        onTouchEnd={this.onTouchEnd}
       />
     );
   }
