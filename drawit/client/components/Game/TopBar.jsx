@@ -73,8 +73,13 @@ const TopBar = props => (
       <i className="fas fa-trophy" />
     </ToggleScoreBoard>
     <ImgCapture > <a href={props.saveImg()} download="My Drawing"> <i className="far fa-save" /> </a></ImgCapture>
-    <TweetButton onClick={props.twitterCall}>
-      Tweet
+    <TweetButton>
+      <a
+        target="_blank"
+        href={`https://twitter.com/intent/tweet?text=Lets%20play%20DrawIt!%20join%20the%20game%20by%20entering%20code ${props.joinCode}`}
+      >
+        Tweet
+      </a>
     </TweetButton>
     <JoinCode>
       <span>{props.joinCode}</span>
@@ -94,8 +99,7 @@ TopBar.propTypes = {
   showingScoreBoard: PropTypes.bool.isRequired,
   addNotification: PropTypes.func.isRequired,
   toggleScoreBoard: PropTypes.func.isRequired,
-  saveImg: PropTypes.func.isRequired, // added
-  twitterCall: PropTypes.func.isRequired,
+  saveImg: PropTypes.func.isRequired,
 };
 
 export default TopBar;
